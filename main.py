@@ -5,7 +5,11 @@ from pathlib import Path
 
 #Get url from user
 print("Enter URL:")
-url = input() + ".json"
+url = input().strip() + ".json"
+
+# Get output directory from user
+print(r"Enter save location as path(e.g., C:\Users\YourName\Documents\ForumDownloader):")
+user_path = input().strip()
 
 #Set a user-agent header to mimic a browser request
 headers = {
@@ -48,7 +52,7 @@ if response.status_code == 200:
     ]
 
     #Create Directory
-    folder_path = Path('C:/Users/obi/Documents/ForumDownloader/' + post_title)
+    folder_path = Path(user_path) / post_title
     folder_path.mkdir(parents=True, exist_ok=True)
 
     #Download images
