@@ -27,8 +27,14 @@ while True:
     if response.status_code == 200:
         # Converts the JSON string automatically into a Python dictionary
         data = response.json()
-        #Get the title of the post and the post stream
+
+        #Remove invalid characters from the post title to create a valid folder name
+        invalid_chars = r'<>:"/\\|?*'
         post_title = data.get("title")
+        clean_post_title = translation_table = str.maketrans("", "", invalid_chars)
+        post_title = post_title.translate(clean_post_title)
+
+        #Get the post stream and posts from the JSON data
         post_stream = data.get("post_stream", {})
         posts = post_stream.get("posts", [])
 
